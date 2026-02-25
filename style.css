@@ -8,8 +8,8 @@
 :root{
     --negro:#252525;
     --blanco:#ffff;
-    --azul:#A8B2D1;
-    --naranja:#E17C42;
+    --azul:#1F2937;
+    --naranja:#F97316;
     --rojo:#E14242;
     --verde:#42E15A;
     --popins:"Poppins", sans-serif;
@@ -32,7 +32,7 @@ body{
   align-items: center;
   justify-content: center;
   gap: 1vw;
-  border: 5px dashed #e17c4279;
+  border: 5px dashed #B65E2F;
   border-radius: 8px;
   padding: 1rem 1.5rem;
   cursor: pointer;
@@ -83,36 +83,72 @@ input[type="file"] {
 }
 
 
-/*modal*/
+/* ================= MODAL BASE ================= */
 
 .modal {
+    pointer-events: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+
+  background: rgba(0, 0, 0, 0.0);
+  backdrop-filter: blur(0px);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 
+    opacity 0.35s ease,
+    background 0.35s ease,
+    backdrop-filter 0.35s ease;
 }
-.modal.hidden {
-  display: none;
+
+.modal.active {
+    pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
 }
+
+/* ================= CONTENIDO ================= */
+
 .modal-content {
   position: relative;
   width: 100%;
   height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1em;
 }
+
+/* ================= IMAGEN ANIMADA ================= */
+
 .modal-content img {
   width: 30vw;
-  border-radius: 10px;
+  border-radius: 12px;
+
+  transform: scale(0.8) translateY(40px);
+  opacity: 0;
+
+  transition: 
+    transform 0.35s cubic-bezier(.2,.8,.2,1),
+    opacity 0.3s ease;
 }
+
+.modal.active .modal-content img {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
 .close-btn {
   display: flex;
   justify-content: center;
